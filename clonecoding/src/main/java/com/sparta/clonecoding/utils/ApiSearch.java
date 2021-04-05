@@ -2,10 +2,13 @@ package com.sparta.clonecoding.utils;
 
 import com.sparta.clonecoding.dto.ContentDto;
 import com.sparta.clonecoding.dto.DramaDto;
+import com.sparta.clonecoding.dto.TrendDto;
 import com.sparta.clonecoding.model.Content;
 import com.sparta.clonecoding.model.Drama;
+import com.sparta.clonecoding.model.Trend;
 import com.sparta.clonecoding.repository.DramaRepository;
 import com.sparta.clonecoding.repository.MovieRepository;
+import com.sparta.clonecoding.repository.TrendRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +25,7 @@ public class ApiSearch {
 
     private final MovieRepository movieRepository;
     private final DramaRepository dramaRepository;
+    private final TrendRepository trendRepository;
 
 
     public String moivePoppular(int page){
@@ -76,6 +80,38 @@ public class ApiSearch {
             dramaRepository.save(content);
         }
         return dramaDtoList;
+    }
+
+    public String trend(int page) {
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/trending/all/day?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR&page="+page, HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+
+    public List<TrendDto> fromJSONtotrend(String result) {
+        JSONObject tjson = new JSONObject(result);
+        JSONArray trends = tjson.getJSONArray("results");
+        List<TrendDto> trendDtoList = new ArrayList<>();
+
+        for (int i = 0; i < trends.length(); i++) {
+
+            JSONObject trendJson = trends.getJSONObject(i);
+            TrendDto trenddto = new TrendDto(trendJson);
+            Trend trend = new Trend(trenddto);
+            trendDtoList.add(trenddto);
+            trendRepository.save(trend);
+        }
+        return trendDtoList;
     }
 
 
