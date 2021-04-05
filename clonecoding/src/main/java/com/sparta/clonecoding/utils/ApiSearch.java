@@ -1,7 +1,10 @@
 package com.sparta.clonecoding.utils;
 
 import com.sparta.clonecoding.dto.ContentDto;
+import com.sparta.clonecoding.dto.DramaDto;
 import com.sparta.clonecoding.model.Content;
+import com.sparta.clonecoding.model.Drama;
+import com.sparta.clonecoding.repository.DramaRepository;
 import com.sparta.clonecoding.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
@@ -18,6 +21,7 @@ import java.util.List;
 public class ApiSearch {
 
     private final MovieRepository movieRepository;
+    private final DramaRepository dramaRepository;
 
 
     public String moivePoppular(int page){
@@ -38,23 +42,59 @@ public class ApiSearch {
         return response;
     }
 
+
+
+    public String dramaPoppular(int page){
+
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("cookie", "JSESSIONID=D639E44D96F4C8B7CCDD48F8F1CB2480");
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/tv/popular?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR&page=" + page, HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+    public List<DramaDto> fromJSONtoDrama(String result){
+        JSONObject rjson = new JSONObject(result);
+        JSONArray items = rjson.getJSONArray("results");
+
+        List<DramaDto> dramaDtoList = new ArrayList<>();
+        for(int i=0 ; i<items.length();i++){
+
+            JSONObject itemJson = items.getJSONObject(i);
+            DramaDto itemDto = new DramaDto(itemJson);
+            Drama content = new Drama(itemDto);
+            dramaDtoList.add(itemDto);
+            dramaRepository.save(content);
+        }
+        return dramaDtoList;
+    }
+
+
+
+
+
+    //영화용
     public List<ContentDto> fromJSONtoItems(String result){
         JSONObject rjson = new JSONObject(result);
         JSONArray items = rjson.getJSONArray("results");
 
         List<ContentDto> contentDtoList = new ArrayList<>();
-        System.out.println("hi");
         for(int i=0 ; i<items.length();i++){
 
                 JSONObject itemJson = items.getJSONObject(i);
                 ContentDto itemDto = new ContentDto(itemJson);
                 Content content = new Content(itemDto);
-                System.out.println("hi2");
                 contentDtoList.add(itemDto);
                 movieRepository.save(content);
-
-
-
         }
         return contentDtoList;
     }
