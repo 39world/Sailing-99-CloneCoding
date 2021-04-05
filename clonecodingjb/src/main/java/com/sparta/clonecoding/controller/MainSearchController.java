@@ -1,7 +1,7 @@
 package com.sparta.clonecoding.controller;
 
 import com.sparta.clonecoding.dto.ContentDto;
-import com.sparta.clonecoding.models.Content;
+import com.sparta.clonecoding.dto.TrendDto;
 import com.sparta.clonecoding.repository.ContentRepository;
 import com.sparta.clonecoding.utils.ApiSearch;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class MainSearchController {
     @GetMapping("/api/main/popular")
     public void getContent() {
         //10페이지까지 불러오기
-        for (int i = 1; i <= 10; i++) {
-            String resultString = apiSearch.poppular();
+        for (int i = 1; i <= 8; i++) {
+            String resultString = apiSearch.moviePoppular(i);
             System.out.println(apiSearch.fromJSONtoContent(resultString));
             List<ContentDto> contentDtoList = apiSearch.fromJSONtoContent(resultString);
 
@@ -32,23 +32,23 @@ public class MainSearchController {
         }
     }
 
-}
 
-
-
-
-//    //메인 페이지 인기드라마 데이터 조회
+    //    //메인 페이지 인기드라마 데이터 조회
 //    @GetMapping("/api/main/drama")
 //    public  List<ContentDto> getDrama(){
 //        String dramaString = apiSearch.drama();
 //        return apiSearch.fromJSONtodramas(dramaString);
 //    }
 //    //메인페이지 트랜드영상 데이터 조회
-//    @GetMapping("/api/main/trend")
-//    public List<ContentDto> gettrend(){
-//        String trendString = apiSearch.trend();
-//        return apiSearch.fromJSONtotrend(trendString);
-//    }
+    @GetMapping("/api/main/trend")
+    public void gettrend() {
+        for (int i = 1; i <= 8; i++) {
+            String resultString = apiSearch.trend(i);
+            System.out.println(apiSearch.fromJSONtotrend(resultString));
+            List<TrendDto> trendDtoList = apiSearch.fromJSONtotrend(resultString);
+        }
+    }
+}
 
 
 

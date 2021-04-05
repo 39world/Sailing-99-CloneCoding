@@ -22,29 +22,29 @@ public class Content {
     @Column(length = 1000,nullable = false)
     private String overview;
     @Column
-    private String image;
+    private String poster_path;
     @Column
     private String releaseDate;
     @Column
     private Double average;
-    @Column
-    private String backdropPath;
+    @Column(nullable = true)
+    private String backdrop_path;
     @Column
     private Long contentId;
-//    @Column
-//    private ArrayList<String> genre;
+    @Column
+    private Long genre;
 
 
 
     public Content(ContentDto contentDto){
         this.title = contentDto.getTitle();
         this.overview = contentDto.getOverview();
-        this.image = contentDto.getImage();
+        this.poster_path = contentDto.getPoster_path();
         this.releaseDate = contentDto.getReleaseDate();
         this.average = contentDto.getAverage();
-        this.backdropPath = contentDto.getBackdropPath();
+        this.backdrop_path = contentDto.getBackdrop_path();
         this.contentId =contentDto.getContentId();
-//        this.genre = contentDto.getGenre();
+        this.genre = contentDto.getGenre().get(0);
 
 
     }
