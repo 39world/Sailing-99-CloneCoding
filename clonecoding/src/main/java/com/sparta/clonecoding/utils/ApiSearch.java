@@ -1,6 +1,9 @@
 package com.sparta.clonecoding.utils;
 
 import com.sparta.clonecoding.dto.ContentDto;
+import com.sparta.clonecoding.model.Content;
+import com.sparta.clonecoding.repository.MovieRepository;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
@@ -10,8 +13,11 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Component
 public class ApiSearch {
+
+    private final MovieRepository movieRepository;
 
 
     public String moivePoppular(int page){
@@ -29,7 +35,6 @@ public class ApiSearch {
         String response = responseEntity.getBody();
         System.out.println("Response status: " + status);
         System.out.println(response);
-
         return response;
     }
 
@@ -38,14 +43,17 @@ public class ApiSearch {
         JSONArray items = rjson.getJSONArray("results");
 
         List<ContentDto> contentDtoList = new ArrayList<>();
-
+        System.out.println("hi");
         for(int i=0 ; i<items.length();i++){
 
                 JSONObject itemJson = items.getJSONObject(i);
-//            if (itemJson.has("realese_date")){
                 ContentDto itemDto = new ContentDto(itemJson);
+                Content content = new Content(itemDto);
+                System.out.println("hi2");
                 contentDtoList.add(itemDto);
-//            }
+                movieRepository.save(content);
+
+
 
         }
         return contentDtoList;
