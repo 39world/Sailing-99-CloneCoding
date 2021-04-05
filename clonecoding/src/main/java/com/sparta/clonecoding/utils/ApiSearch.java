@@ -14,7 +14,7 @@ import java.util.List;
 public class ApiSearch {
 
 
-    public String poppular(){
+    public String moivePoppular(int page){
 
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -23,7 +23,7 @@ public class ApiSearch {
         String body = "";
 
         HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
-        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/movie/popular?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR&page=1", HttpMethod.GET, requestEntity, String.class);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/movie/popular?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR&page=" + page, HttpMethod.GET, requestEntity, String.class);
         HttpStatus httpStatus = responseEntity.getStatusCode();
         int status = httpStatus.value();
         String response = responseEntity.getBody();
@@ -40,9 +40,13 @@ public class ApiSearch {
         List<ContentDto> contentDtoList = new ArrayList<>();
 
         for(int i=0 ; i<items.length();i++){
-            JSONObject itemJson = items.getJSONObject(i);
-            ContentDto itemDto = new ContentDto(itemJson);
-            contentDtoList.add(itemDto);
+
+                JSONObject itemJson = items.getJSONObject(i);
+//            if (itemJson.has("realese_date")){
+                ContentDto itemDto = new ContentDto(itemJson);
+                contentDtoList.add(itemDto);
+//            }
+
         }
         return contentDtoList;
     }

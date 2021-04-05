@@ -17,10 +17,12 @@ public class MainSearchController {
 
     //메인 페이지 인기영화 데이터 조회
     @GetMapping("/api/main/popular")
-    public List<ContentDto> getContent(){
-        String resultString = apiSearch.poppular();
-        System.out.println(apiSearch.fromJSONtoItems(resultString));
-        return apiSearch.fromJSONtoItems(resultString);
-
+    public void getContent(){
+        //300페이지까지 불러오기
+        for (int i = 1 ; i<=10; i++){
+            String resultString = apiSearch.moivePoppular(i);
+            System.out.println(apiSearch.fromJSONtoItems(resultString));
+            apiSearch.fromJSONtoItems(resultString);
+        }
     }
 }
