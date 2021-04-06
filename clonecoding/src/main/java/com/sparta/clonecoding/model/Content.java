@@ -3,14 +3,7 @@ package com.sparta.clonecoding.model;
 import com.sparta.clonecoding.dto.ContentDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.tool.schema.internal.exec.GenerationTarget;
-import org.json.JSONArray;
-import org.springframework.stereotype.Service;
-
 import javax.persistence.*;
-import java.util.List;
-import java.util.ArrayList;
 
 @Getter
 @Entity
@@ -39,6 +32,7 @@ public class Content {
     private Long genre;
 
     public Content(ContentDto contentDto){
+
         this.contentId = contentDto.getContentId();
         this.title = contentDto.getTitle();
         this.overview = contentDto.getOverview();
@@ -46,7 +40,14 @@ public class Content {
         this.releaseDate = contentDto.getReleaseDate();
         this.average = contentDto.getAverage();
         this.backdrop_path = contentDto.getBackdrop_path();
-        this.genre = contentDto.getGenre().get(0);
+
+        if(contentDto.getGenre() == null){
+            this.genre = null;
+        } else {
+            this.genre = contentDto.getGenre().get(0);
+        }
+
+
 
     }
 

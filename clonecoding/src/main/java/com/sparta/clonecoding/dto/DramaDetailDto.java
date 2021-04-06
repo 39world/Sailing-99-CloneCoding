@@ -103,7 +103,6 @@ public class DramaDetailDto {
             }
 
         }
-        System.out.println("어덜트 완료");
 
     }
 }

@@ -31,36 +31,37 @@ public class ContentDto {
 
 
     public ContentDto(JSONObject contentJson){
-        if(contentJson.has("id")) {
+
+
+        if(contentJson.isNull("id")){
+            this.contentId = null;
+        } else{
             this.contentId = contentJson.getLong("id");
         }
-
         if(contentJson.isNull("title")){
             this.title = "";
         } else{
             this.title = contentJson.getString("title");
         }
-
         if(contentJson.isNull("overview")){
             this.overview = "";
         } else{
             this.overview = contentJson.getString("overview");
         }
-
         if(contentJson.isNull("poster_path")){
             this.poster_path = "";
         } else{
             this.poster_path = contentJson.getString("poster_path");
         }
 
-
         if(contentJson.isNull("release_date")){
             this.releaseDate = "";
         } else{
             this.releaseDate = contentJson.getString("release_date");
         }
-
-        if(contentJson.has("vote_average")){
+        if(contentJson.isNull("vote_average")){
+            this.average = null;
+        } else{
             this.average = contentJson.getDouble("vote_average");
         }
 
@@ -73,15 +74,18 @@ public class ContentDto {
             this.genre = null;
         } else{
             this.genre = new ArrayList<>();
-
             JSONArray genre_ids_array = contentJson.getJSONArray("genre_ids");
-            for(int i = 0; i < genre_ids_array.length(); i++){
-                this.genre.add(genre_ids_array.getLong(i));
-        }
 
+            if( genre_ids_array.length() >0){
+                    this.genre.add(genre_ids_array.getLong(0));
+            }else {
+                    this.genre = null;
+                }
+        }
+        System.out.println("genre");
         }
 
     }
 
 
-}
+

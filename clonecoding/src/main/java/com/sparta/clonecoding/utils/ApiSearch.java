@@ -118,7 +118,6 @@ public class ApiSearch {
 
         List<ContentDto> contentDtoList = new ArrayList<>();
         for(int i=0 ; i<items.length();i++){
-
                 JSONObject itemJson = items.getJSONObject(i);
                 ContentDto itemDto = new ContentDto(itemJson);
                 Content content = new Content(itemDto);

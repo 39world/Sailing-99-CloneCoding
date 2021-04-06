@@ -24,12 +24,12 @@ public class MainSearchController {
     @GetMapping("/api/main/database")
     public void getDB() {
         //10페이지까지 불러오기
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= 20; i++) {
             String resultString = apiSearch.moivePoppular(i);
             System.out.println(apiSearch.fromJSONtoItems(resultString));
         }
         //드라마
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 19; i++) {
             String resultString = apiSearch.dramaPoppular(i);
             System.out.println(apiSearch.fromJSONtoDrama(resultString));
         }
@@ -40,8 +40,6 @@ public class MainSearchController {
             List<TrendDto> trendDtoList = apiSearch.fromJSONtotrend(resultString);
         }
     }
-
-
 
 
     @GetMapping("/api/main/movie")

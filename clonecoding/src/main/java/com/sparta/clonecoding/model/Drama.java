@@ -35,14 +35,26 @@ public class Drama {
     private Long genre;
 
     public Drama(DramaDto DramaDto){
+
         this.contentId = DramaDto.getContentId();
+
         this.name = DramaDto.getName();
+
         this.overview = DramaDto.getOverview();
+
         this.poster_path = DramaDto.getPoster_path();
+
         this.firstDate = DramaDto.getFirstDate();
+
         this.average = DramaDto.getAverage();
+
         this.backdrop_path = DramaDto.getBackdrop_path();
-        this.genre = DramaDto.getGenre().get(0);
+
+        if(DramaDto.getGenre() == null){
+            this.genre = null;
+        } else {
+            this.genre = DramaDto.getGenre().get(0);
+        }
 
     }
 }

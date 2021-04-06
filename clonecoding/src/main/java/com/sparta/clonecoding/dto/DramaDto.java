@@ -31,6 +31,7 @@ public class DramaDto {
 
 
     public DramaDto(JSONObject contentJson){
+
         if(contentJson.has("id")) {
             this.contentId = contentJson.getLong("id");
         }
@@ -69,16 +70,18 @@ public class DramaDto {
         } else{
             this.backdrop_path = contentJson.getString("backdrop_path");
         }
+
         if(contentJson.isNull("genre_ids")){
             this.genre = null;
         } else{
             this.genre = new ArrayList<>();
-
             JSONArray genre_ids_array = contentJson.getJSONArray("genre_ids");
-            for(int i = 0; i < genre_ids_array.length(); i++){
-                this.genre.add(genre_ids_array.getLong(i));
-            }
 
+            if( genre_ids_array.length() >0){
+                this.genre.add(genre_ids_array.getLong(0));
+            }else {
+                this.genre = null;
+            }
         }
 
     }
