@@ -6,11 +6,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Getter
-//얘는 dto
 public class TrendDto {
-    //dto의 구성은 즉 우리가 리스트에서 가져와야할값은 밑에 5개이다
+
     private String title;
     private String overview;
     private String poster_path;

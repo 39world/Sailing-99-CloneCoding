@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ContentDto {
+public class DramaDto {
 
     @Column
     private Long contentId;
     @Column
-    private String title;
+    private String name;
     @Column(length = 1000,nullable = false)
     private String overview;
     @Column
     private String poster_path;
     @Column
-    private String releaseDate;
+    private String firstDate;
     @Column
     private Double average;
     @Column(nullable = true)
@@ -30,15 +30,15 @@ public class ContentDto {
 
 
 
-    public ContentDto(JSONObject contentJson){
+    public DramaDto(JSONObject contentJson){
         if(contentJson.has("id")) {
             this.contentId = contentJson.getLong("id");
         }
 
-        if(contentJson.isNull("title")){
-            this.title = "";
+        if(contentJson.isNull("name")){
+            this.name = "";
         } else{
-            this.title = contentJson.getString("title");
+            this.name = contentJson.getString("name");
         }
 
         if(contentJson.isNull("overview")){
@@ -54,10 +54,10 @@ public class ContentDto {
         }
 
 
-        if(contentJson.isNull("release_date")){
-            this.releaseDate = "";
+        if(contentJson.isNull("first_air_date")){
+            this.firstDate = "";
         } else{
-            this.releaseDate = contentJson.getString("release_date");
+            this.firstDate = contentJson.getString("first_air_date");
         }
 
         if(contentJson.has("vote_average")){
@@ -82,6 +82,4 @@ public class ContentDto {
         }
 
     }
-
-
 }
