@@ -185,4 +185,52 @@ public class ApiSearch {
         return dramaDetail;
     }
 
+    //영화 비디오 검색
+    public String ContentVideoForId(Long id){
+
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("cookie", "JSESSIONID=D639E44D96F4C8B7CCDD48F8F1CB2480");
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/movie/"+id+"/videos?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR", HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+    public VideoUrl fromJSONtoContentVideo(String result){
+        JSONObject rjson = new JSONObject(result);
+        JSONArray items = rjson.getJSONArray("results");
+        JSONObject itemJson = items.getJSONObject(0);
+        VideoUrlDto videoUrlDto = new VideoUrlDto(itemJson);
+        VideoUrl videoUrl = new VideoUrl(videoUrlDto);
+        return videoUrl;
+    }
+
+
+    public String DramaVideoForId(Long id){
+
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("cookie", "JSESSIONID=D639E44D96F4C8B7CCDD48F8F1CB2480");
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/tv/"+id+"/videos?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=en-US", HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+
 }

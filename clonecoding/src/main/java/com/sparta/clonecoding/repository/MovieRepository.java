@@ -10,6 +10,6 @@ public interface MovieRepository extends JpaRepository<Content, Long> {
 
     List<Content> findAllByOrderByAverageDesc();
 
-    List<Content> findAllByGenreByAverageDesc(Long Genre);
+    List<Content> findAllByGenre(Long Genre);
 
 }
