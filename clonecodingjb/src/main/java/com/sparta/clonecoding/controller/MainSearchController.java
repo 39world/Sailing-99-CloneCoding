@@ -1,84 +1,78 @@
 package com.sparta.clonecoding.controller;
 
-import com.sparta.clonecoding.dto.ContentDto;
 import com.sparta.clonecoding.dto.TrendDto;
-import com.sparta.clonecoding.repository.ContentRepository;
+
+import com.sparta.clonecoding.models.Content;
+import com.sparta.clonecoding.models.Drama;
+import com.sparta.clonecoding.models.Trend;
+import com.sparta.clonecoding.repository.DramaRepository;
+import com.sparta.clonecoding.repository.MovieRepository;
+import com.sparta.clonecoding.repository.TrendRepository;
 import com.sparta.clonecoding.utils.ApiSearch;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//이걸안쓰면 리스폰스 바디를 이용하여 정적 컨트롤러임을 밝혀야한다.,
 @RestController
-//뭐였지??/
 @RequiredArgsConstructor
 public class MainSearchController {
-    //APIsearch를 기반으로한 데이터 조회이기 떄문에 꼭 있어야하는 파이널값을 넣어준다.
+
     private final ApiSearch apiSearch;
-    private final ContentRepository contentRepository;
+    private final MovieRepository movieRepository;
+    private final DramaRepository dramaRepository;
+    private final TrendRepository trendRepository;
 
     //메인 페이지 인기영화 데이터 조회
-    @GetMapping("/api/main/popular")
-    public void getContent() {
+    @GetMapping("/api/main/database")
+    public void getDB() {
         //10페이지까지 불러오기
         for (int i = 1; i <= 8; i++) {
-            String resultString = apiSearch.moviePoppular(i);
-            System.out.println(apiSearch.fromJSONtoContent(resultString));
-            List<ContentDto> contentDtoList = apiSearch.fromJSONtoContent(resultString);
-
-
+            String resultString = apiSearch.moivePoppular(i);
+            System.out.println(apiSearch.fromJSONtoItems(resultString));
         }
-    }
-
-
-    //    //메인 페이지 인기드라마 데이터 조회
-//    @GetMapping("/api/main/drama")
-//    public  List<ContentDto> getDrama(){
-//        String dramaString = apiSearch.drama();
-//        return apiSearch.fromJSONtodramas(dramaString);
-//    }
-//    //메인페이지 트랜드영상 데이터 조회
-    @GetMapping("/api/main/trend")
-    public void gettrend() {
+        //드라마
+        for (int i = 1; i <= 5; i++) {
+            String resultString = apiSearch.dramaPoppular(i);
+            System.out.println(apiSearch.fromJSONtoDrama(resultString));
+        }
+        //트랜드 작품
         for (int i = 1; i <= 8; i++) {
             String resultString = apiSearch.trend(i);
             System.out.println(apiSearch.fromJSONtotrend(resultString));
             List<TrendDto> trendDtoList = apiSearch.fromJSONtotrend(resultString);
         }
     }
+
+    @GetMapping("/api/main/movie")
+    public List<Content> getContent() {
+        return movieRepository.findAllByOrderByAverageDesc();
+    }
+
+    @GetMapping("/api/main/movie/{id}")
+    public List<Content> getContentForId(@PathVariable Long id) {
+        return movieRepository.findByContentId(id);
+    }
+
+    @GetMapping("/api/main/trend")
+    public List<Trend> getTrend() {
+        return trendRepository.findAllByOrderByAverageDesc();
+    }
+
+    @GetMapping("/api/main/trend/{id}")
+    public List<Trend> getTrendForId(@PathVariable Long id) {
+        return trendRepository.findByContentId(id);
+    }
+
+    @GetMapping("/api/main/drama")
+    public List<Drama> getDrama() {
+        return dramaRepository.findAllByOrderByAverageDesc();
+    }
+
+    @GetMapping("/api/main/drama/{id}")
+    public List<Drama> getDramaForId(@PathVariable Long id) {
+        return dramaRepository.findByContentId(id);
+    }
+
+
 }
-
-
-
-
-
-
-
-//import com.sparta.clonecoding.dto.ContentDto;
-//        import com.sparta.clonecoding.utils.ApiSearch;
-//        import lombok.RequiredArgsConstructor;
-//        import org.springframework.web.bind.annotation.GetMapping;
-//        import org.springframework.web.bind.annotation.RestController;
-//
-//        import javax.crypto.spec.PSource;
-//        import java.util.List;
-//
-//@RestController
-//@RequiredArgsConstructor
-//public class MainSearchController {
-//
-//    private final ApiSearch apiSearch;
-//
-//    //메인 페이지 인기영화 데이터 조회
-//    @GetMapping("/api/main/popular")
-//    public void getContent(){
-//        //300페이지까지 불러오기
-//        for (int i = 1 ; i<=10; i++){
-//            String resultString = apiSearch.moivePoppular(i);
-//            System.out.println(apiSearch.fromJSONtoItems(resultString));
-//            apiSearch.fromJSONtoItems(resultString);
-//        }
-//    }
-//}

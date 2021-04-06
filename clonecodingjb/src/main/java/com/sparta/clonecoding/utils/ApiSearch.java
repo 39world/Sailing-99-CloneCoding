@@ -1,11 +1,16 @@
 package com.sparta.clonecoding.utils;
 
+
 import com.sparta.clonecoding.dto.ContentDto;
+import com.sparta.clonecoding.dto.DramaDto;
 import com.sparta.clonecoding.dto.TrendDto;
 import com.sparta.clonecoding.models.Content;
+import com.sparta.clonecoding.models.Drama;
 import com.sparta.clonecoding.models.Trend;
-import com.sparta.clonecoding.repository.ContentRepository;
+import com.sparta.clonecoding.repository.DramaRepository;
+import com.sparta.clonecoding.repository.MovieRepository;
 import com.sparta.clonecoding.repository.TrendRepository;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
@@ -14,20 +19,17 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-//TMDB에서 영화,드라마,트랜드영상의 데이터를 가져와 DB에 저장 하는 역할의 첫번쨰 관문이다.
-@Component
 
+@RequiredArgsConstructor
+@Component
 public class ApiSearch {
-    private final ContentRepository contentRepository;
+
+    private final MovieRepository movieRepository;
+    private final DramaRepository dramaRepository;
     private final TrendRepository trendRepository;
 
-    public ApiSearch(ContentRepository contentRepository, TrendRepository trendRepository) {
-        this.contentRepository = contentRepository;
-        this.trendRepository = trendRepository;
-    }
 
-
-    public String moviePoppular(int page){
+    public String moivePoppular(int page){
 
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -45,28 +47,41 @@ public class ApiSearch {
         return response;
     }
 
-    public List<ContentDto>fromJSONtoContent(String result){
+
+
+    public String dramaPoppular(int page){
+
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("cookie", "JSESSIONID=D639E44D96F4C8B7CCDD48F8F1CB2480");
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/tv/popular?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR&page=" + page, HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+    public List<DramaDto> fromJSONtoDrama(String result){
         JSONObject rjson = new JSONObject(result);
         JSONArray items = rjson.getJSONArray("results");
 
-        List<ContentDto> contentDtoList = new ArrayList<>();
+        List<DramaDto> dramaDtoList = new ArrayList<>();
         for(int i=0 ; i<items.length();i++){
 
             JSONObject itemJson = items.getJSONObject(i);
-            ContentDto itemDto = new ContentDto(itemJson);
-            Content content = new Content(itemDto);
-            contentDtoList.add(itemDto);
-            contentRepository.save(content);
-
-
-
+            DramaDto itemDto = new DramaDto(itemJson);
+            Drama content = new Drama(itemDto);
+            dramaDtoList.add(itemDto);
+            dramaRepository.save(content);
         }
-        return contentDtoList;
+        return dramaDtoList;
     }
-
-
-
-
 
     public String trend(int page) {
         RestTemplate rest = new RestTemplate();
@@ -100,6 +115,26 @@ public class ApiSearch {
         return trendDtoList;
     }
 
+
+
+
+
+    //영화용
+    public List<ContentDto> fromJSONtoItems(String result){
+        JSONObject rjson = new JSONObject(result);
+        JSONArray items = rjson.getJSONArray("results");
+
+        List<ContentDto> contentDtoList = new ArrayList<>();
+        for(int i=0 ; i<items.length();i++){
+
+            JSONObject itemJson = items.getJSONObject(i);
+            ContentDto itemDto = new ContentDto(itemJson);
+            Content content = new Content(itemDto);
+            contentDtoList.add(itemDto);
+            movieRepository.save(content);
+        }
+        return contentDtoList;
+    }
 
 
 }

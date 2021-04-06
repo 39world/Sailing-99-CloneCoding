@@ -1,18 +1,17 @@
 package com.sparta.clonecoding.models;
 
 import com.sparta.clonecoding.dto.ContentDto;
+import com.sparta.clonecoding.dto.DramaDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 import javax.persistence.*;
-
-
 
 @Getter
 @Entity
 @NoArgsConstructor
-public class Content {
+public class Drama {
+
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -21,13 +20,13 @@ public class Content {
     @Column
     private Long contentId;
     @Column
-    private String title;
+    private String name;
     @Column(length = 1000,nullable = false)
     private String overview;
     @Column
     private String poster_path;
     @Column
-    private String releaseDate;
+    private String firstDate;
     @Column
     private Double average;
     @Column
@@ -35,17 +34,15 @@ public class Content {
     @Column
     private Long genre;
 
-    public Content(ContentDto contentDto){
-        this.contentId = contentDto.getContentId();
-        this.title = contentDto.getTitle();
-        this.overview = contentDto.getOverview();
-        this.poster_path = contentDto.getPoster_path();
-        this.releaseDate = contentDto.getReleaseDate();
-        this.average = contentDto.getAverage();
-        this.backdrop_path = contentDto.getBackdrop_path();
-        this.genre = contentDto.getGenre().get(0);
+    public Drama(DramaDto DramaDto){
+        this.contentId = DramaDto.getContentId();
+        this.name = DramaDto.getName();
+        this.overview = DramaDto.getOverview();
+        this.poster_path = DramaDto.getPoster_path();
+        this.firstDate = DramaDto.getFirstDate();
+        this.average = DramaDto.getAverage();
+        this.backdrop_path = DramaDto.getBackdrop_path();
+        this.genre = DramaDto.getGenre().get(0);
 
     }
-
-
 }

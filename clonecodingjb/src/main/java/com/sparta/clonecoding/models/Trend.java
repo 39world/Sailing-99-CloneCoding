@@ -1,16 +1,17 @@
 package com.sparta.clonecoding.models;
 
-import com.sparta.clonecoding.dto.ContentDto;
 import com.sparta.clonecoding.dto.TrendDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Getter
-@NoArgsConstructor // 기본 생성자를 만들어줍니다.
+@NoArgsConstructor
 @Entity
 public class Trend {
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
