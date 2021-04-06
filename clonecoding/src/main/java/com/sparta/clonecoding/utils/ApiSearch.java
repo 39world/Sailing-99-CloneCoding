@@ -1,11 +1,7 @@
 package com.sparta.clonecoding.utils;
 
-import com.sparta.clonecoding.dto.ContentDto;
-import com.sparta.clonecoding.dto.DramaDto;
-import com.sparta.clonecoding.dto.TrendDto;
-import com.sparta.clonecoding.model.Content;
-import com.sparta.clonecoding.model.Drama;
-import com.sparta.clonecoding.model.Trend;
+import com.sparta.clonecoding.dto.*;
+import com.sparta.clonecoding.model.*;
 import com.sparta.clonecoding.repository.DramaRepository;
 import com.sparta.clonecoding.repository.MovieRepository;
 import com.sparta.clonecoding.repository.TrendRepository;
@@ -27,7 +23,7 @@ public class ApiSearch {
     private final DramaRepository dramaRepository;
     private final TrendRepository trendRepository;
 
-
+//영화 검색
     public String moivePoppular(int page){
 
         RestTemplate rest = new RestTemplate();
@@ -47,7 +43,7 @@ public class ApiSearch {
     }
 
 
-
+//Drama 검색
     public String dramaPoppular(int page){
 
         RestTemplate rest = new RestTemplate();
@@ -65,7 +61,7 @@ public class ApiSearch {
         System.out.println(response);
         return response;
     }
-
+//Drama DB
     public List<DramaDto> fromJSONtoDrama(String result){
         JSONObject rjson = new JSONObject(result);
         JSONArray items = rjson.getJSONArray("results");
@@ -81,7 +77,7 @@ public class ApiSearch {
         }
         return dramaDtoList;
     }
-
+//트렌드 검색
     public String trend(int page) {
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -97,7 +93,7 @@ public class ApiSearch {
         return response;
     }
 
-
+//트렌드 DB
     public List<TrendDto> fromJSONtotrend(String result) {
         JSONObject tjson = new JSONObject(result);
         JSONArray trends = tjson.getJSONArray("results");
@@ -115,10 +111,7 @@ public class ApiSearch {
     }
 
 
-
-
-
-    //영화용
+    //영화 DB
     public List<ContentDto> fromJSONtoItems(String result){
         JSONObject rjson = new JSONObject(result);
         JSONArray items = rjson.getJSONArray("results");
@@ -134,6 +127,62 @@ public class ApiSearch {
         }
         return contentDtoList;
     }
+//영화 상세검색
+    public String moiveForId(Long id){
 
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("cookie", "JSESSIONID=D639E44D96F4C8B7CCDD48F8F1CB2480");
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/movie/"+id+"?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR", HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+    public Detail fromJSONtoDetail(String result){
+        JSONObject rjson = new JSONObject(result);
+        System.out.println(rjson);
+        DetailDto itemDto = new DetailDto(rjson);
+        System.out.println(itemDto);
+        Detail detail = new Detail(itemDto);
+
+
+        return detail;
+    }
+
+//트렌트 상세 검색
+    public String dramaForId(Long id){
+
+        RestTemplate rest = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("cookie", "JSESSIONID=D639E44D96F4C8B7CCDD48F8F1CB2480");
+        String body = "";
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = rest.exchange("https://api.themoviedb.org/3/tv/"+id+"?api_key=127d1ec8dfd28bfe9f6b8d15f689cdd4&language=ko-KR", HttpMethod.GET, requestEntity, String.class);
+        HttpStatus httpStatus = responseEntity.getStatusCode();
+        int status = httpStatus.value();
+        String response = responseEntity.getBody();
+        System.out.println("Response status: " + status);
+        System.out.println(response);
+        return response;
+    }
+
+    public DramaDetail fromJSONtoDramaDetail(String result){
+        JSONObject rjson = new JSONObject(result);
+        System.out.println(rjson);
+        DramaDetailDto itemDto = new DramaDetailDto(rjson);
+        System.out.println(itemDto);
+        DramaDetail dramaDetail = new DramaDetail(itemDto);
+        return dramaDetail;
+    }
 
 }

@@ -1,9 +1,9 @@
-com/sparta/clonecoding/model/Content.java
- com.sparta.clonecoding.model.Content
+com/sparta/clonecoding/model/Detail.java
+ com.sparta.clonecoding.model.Detail
 com/sparta/clonecoding/model/Trend.java
  com.sparta.clonecoding.model.Trend
-com/sparta/clonecoding/dto/ContentDto.java
- com.sparta.clonecoding.dto.ContentDto
+com/sparta/clonecoding/dto/DetailDto.java
+ com.sparta.clonecoding.dto.DetailDto
 com/sparta/clonecoding/dto/TrendDto.java
  com.sparta.clonecoding.dto.TrendDto
 com/sparta/clonecoding/model/Drama.java
@@ -20,7 +20,15 @@ com/sparta/clonecoding/repository/DramaRepository.java
  com.sparta.clonecoding.repository.DramaRepository
 com/sparta/clonecoding/repository/TrendRepository.java
  com.sparta.clonecoding.repository.TrendRepository
-com/sparta/clonecoding/utils/ApiSearch.java
- com.sparta.clonecoding.utils.ApiSearch
+com/sparta/clonecoding/dto/DramaDetailDto.java
+ com.sparta.clonecoding.dto.DramaDetailDto
+com/sparta/clonecoding/model/Content.java
+ com.sparta.clonecoding.model.Content
+com/sparta/clonecoding/dto/ContentDto.java
+ com.sparta.clonecoding.dto.ContentDto
 com/sparta/clonecoding/controller/MainSearchController.java
  com.sparta.clonecoding.controller.MainSearchController
+com/sparta/clonecoding/utils/ApiSearch.java
+ com.sparta.clonecoding.utils.ApiSearch
+com/sparta/clonecoding/model/DramaDetail.java
+ com.sparta.clonecoding.model.DramaDetail

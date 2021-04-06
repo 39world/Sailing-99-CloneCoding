@@ -23,7 +23,7 @@ public class ContentDto {
     private String releaseDate;
     @Column
     private Double average;
-    @Column(nullable = true)
+    @Column
     private String backdrop_path;
     @Column
     private List<Long> genre;

@@ -9,5 +9,5 @@ public interface DramaRepository extends JpaRepository<Drama, Long> {
 
     List<Drama> findAllByOrderByAverageDesc();
 
-    List<Drama> findByContentId(Long contentId);
+    List<Drama> findAllByGenreByAverageDesc(Long genre);
 }
