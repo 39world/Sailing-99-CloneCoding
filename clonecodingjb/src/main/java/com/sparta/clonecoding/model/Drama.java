@@ -1,4 +1,4 @@
-package com.sparta.clonecoding.models;
+package com.sparta.clonecoding.model;
 
 import com.sparta.clonecoding.dto.ContentDto;
 import com.sparta.clonecoding.dto.DramaDto;

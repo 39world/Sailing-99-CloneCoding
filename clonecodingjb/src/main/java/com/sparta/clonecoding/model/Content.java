@@ -1,13 +1,16 @@
-package com.sparta.clonecoding.models;
+package com.sparta.clonecoding.model;
 
 import com.sparta.clonecoding.dto.ContentDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
+import org.hibernate.tool.schema.internal.exec.GenerationTarget;
+import org.json.JSONArray;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
-
-
+import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Entity

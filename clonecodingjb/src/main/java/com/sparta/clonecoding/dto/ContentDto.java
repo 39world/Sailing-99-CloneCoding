@@ -23,7 +23,7 @@ public class ContentDto {
     private String releaseDate;
     @Column
     private Double average;
-    @Column(nullable = true)
+    @Column
     private String backdrop_path;
     @Column
     private List<Long> genre;
@@ -77,7 +77,7 @@ public class ContentDto {
             JSONArray genre_ids_array = contentJson.getJSONArray("genre_ids");
             for(int i = 0; i < genre_ids_array.length(); i++){
                 this.genre.add(genre_ids_array.getLong(i));
-            }
+        }
 
         }
 
