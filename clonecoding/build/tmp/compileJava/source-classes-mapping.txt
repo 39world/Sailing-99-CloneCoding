@@ -1,21 +1,21 @@
 com/sparta/clonecoding/dto/DramaDetailDto.java
  com.sparta.clonecoding.dto.DramaDetailDto
-com/sparta/clonecoding/repository/DramaRepository.java
- com.sparta.clonecoding.repository.DramaRepository
-com/sparta/clonecoding/model/Trend.java
- com.sparta.clonecoding.model.Trend
-com/sparta/clonecoding/model/Detail.java
- com.sparta.clonecoding.model.Detail
-com/sparta/clonecoding/model/VideoUrl.java
- com.sparta.clonecoding.model.VideoUrl
+com/sparta/clonecoding/repository/UserRepository.java
+ com.sparta.clonecoding.repository.UserRepository
+com/sparta/clonecoding/security/WebSecurityConfig.java
+ com.sparta.clonecoding.security.WebSecurityConfig
 com/sparta/clonecoding/dto/ContentDto.java
  com.sparta.clonecoding.dto.ContentDto
-com/sparta/clonecoding/controller/MainSearchController.java
- com.sparta.clonecoding.controller.MainSearchController
-com/sparta/clonecoding/model/Drama.java
- com.sparta.clonecoding.model.Drama
-com/sparta/clonecoding/dto/DramaDto.java
- com.sparta.clonecoding.dto.DramaDto
+com/sparta/clonecoding/model/User.java
+ com.sparta.clonecoding.model.User
+com/sparta/clonecoding/model/UserRole.java
+ com.sparta.clonecoding.model.UserRole
+com/sparta/clonecoding/dto/SignupRequestDto.java
+ com.sparta.clonecoding.dto.SignupRequestDto
+com/sparta/clonecoding/dto/ContentRequestDto.java
+ com.sparta.clonecoding.dto.ContentRequestDto
+com/sparta/clonecoding/controller/UserController.java
+ com.sparta.clonecoding.controller.UserController
 com/sparta/clonecoding/repository/MovieRepository.java
  com.sparta.clonecoding.repository.MovieRepository
 com/sparta/clonecoding/repository/TrendRepository.java
@@ -30,7 +30,33 @@ com/sparta/clonecoding/utils/ApiSearch.java
  com.sparta.clonecoding.utils.ApiSearch
 com/sparta/clonecoding/ClonecodingApplication.java
  com.sparta.clonecoding.ClonecodingApplication
+com/sparta/clonecoding/security/UserDetailsImpl.java
+ com.sparta.clonecoding.security.UserDetailsImpl
 com/sparta/clonecoding/dto/DetailDto.java
  com.sparta.clonecoding.dto.DetailDto
 com/sparta/clonecoding/model/DramaDetail.java
  com.sparta.clonecoding.model.DramaDetail
+com/sparta/clonecoding/dto/UserRequestDto.java
+ com.sparta.clonecoding.dto.UserRequestDto
+com/sparta/clonecoding/repository/DramaRepository.java
+ com.sparta.clonecoding.repository.DramaRepository
+com/sparta/clonecoding/model/Trend.java
+ com.sparta.clonecoding.model.Trend
+com/sparta/clonecoding/model/Detail.java
+ com.sparta.clonecoding.model.Detail
+com/sparta/clonecoding/model/VideoUrl.java
+ com.sparta.clonecoding.model.VideoUrl
+com/sparta/clonecoding/controller/MainSearchController.java
+ com.sparta.clonecoding.controller.MainSearchController
+com/sparta/clonecoding/service/UserService.java
+ com.sparta.clonecoding.service.UserService
+com/sparta/clonecoding/model/Drama.java
+ com.sparta.clonecoding.model.Drama
+com/sparta/clonecoding/dto/DramaDto.java
+ com.sparta.clonecoding.dto.DramaDto
+com/sparta/clonecoding/security/WebConfig.java
+ com.sparta.clonecoding.security.WebConfig
+com/sparta/clonecoding/controller/HomeController.java
+ com.sparta.clonecoding.controller.HomeController
+com/sparta/clonecoding/security/UserDetailsServiceImpl.java
+ com.sparta.clonecoding.security.UserDetailsServiceImpl

@@ -23,7 +23,7 @@ public class ApiSearch {
     private final DramaRepository dramaRepository;
     private final TrendRepository trendRepository;
 
-//영화 검색
+    //영화 검색
     public String moivePoppular(int page){
 
         RestTemplate rest = new RestTemplate();
@@ -43,7 +43,7 @@ public class ApiSearch {
     }
 
 
-//Drama 검색
+    //Drama 검색
     public String dramaPoppular(int page){
 
         RestTemplate rest = new RestTemplate();
@@ -61,7 +61,7 @@ public class ApiSearch {
         System.out.println(response);
         return response;
     }
-//Drama DB
+    //Drama DB
     public List<DramaDto> fromJSONtoDrama(String result){
         JSONObject rjson = new JSONObject(result);
         JSONArray items = rjson.getJSONArray("results");
@@ -77,7 +77,7 @@ public class ApiSearch {
         }
         return dramaDtoList;
     }
-//트렌드 검색
+    //트렌드 검색
     public String trend(int page) {
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -93,7 +93,7 @@ public class ApiSearch {
         return response;
     }
 
-//트렌드 DB
+    //트렌드 DB
     public List<TrendDto> fromJSONtotrend(String result) {
         JSONObject tjson = new JSONObject(result);
         JSONArray trends = tjson.getJSONArray("results");
@@ -118,15 +118,15 @@ public class ApiSearch {
 
         List<ContentDto> contentDtoList = new ArrayList<>();
         for(int i=0 ; i<items.length();i++){
-                JSONObject itemJson = items.getJSONObject(i);
-                ContentDto itemDto = new ContentDto(itemJson);
-                Content content = new Content(itemDto);
-                contentDtoList.add(itemDto);
-                movieRepository.save(content);
+            JSONObject itemJson = items.getJSONObject(i);
+            ContentDto itemDto = new ContentDto(itemJson);
+            Content content = new Content(itemDto);
+            contentDtoList.add(itemDto);
+            movieRepository.save(content);
         }
         return contentDtoList;
     }
-//영화 상세검색
+    //영화 상세검색
     public String moiveForId(Long id){
 
         RestTemplate rest = new RestTemplate();
@@ -156,7 +156,7 @@ public class ApiSearch {
         return detail;
     }
 
-//트렌트 상세 검색
+    //트렌트 상세 검색
     public String dramaForId(Long id){
 
         RestTemplate rest = new RestTemplate();

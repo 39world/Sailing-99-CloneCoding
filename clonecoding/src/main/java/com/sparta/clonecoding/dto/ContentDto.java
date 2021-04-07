@@ -77,15 +77,14 @@ public class ContentDto {
             JSONArray genre_ids_array = contentJson.getJSONArray("genre_ids");
 
             if( genre_ids_array.length() >0){
-                    this.genre.add(genre_ids_array.getLong(0));
+                this.genre.add(genre_ids_array.getLong(0));
             }else {
-                    this.genre = null;
-                }
+                this.genre = null;
+            }
         }
-        System.out.println("genre");
-        }
-
     }
+
+}
 
 
 

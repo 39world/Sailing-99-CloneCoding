@@ -22,7 +22,7 @@ public class VideoUrl {
 
     public VideoUrl(VideoUrlDto VideoUrlDto){
         this.key = VideoUrlDto.getKey();
-     }
+    }
 
 
 }
