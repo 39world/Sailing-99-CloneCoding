@@ -23,7 +23,7 @@ public class MainSearchController {
     //메인 페이지 인기영화 데이터 조회
     @GetMapping("/api/main/database")
     public void getDB() {
-        //10페이지까지 불러오기
+        //영화 데이터 20페이지까지 불러오기
         for (int i = 1; i <= 20; i++) {
             String resultString = apiSearch.moivePoppular(i);
             System.out.println(apiSearch.fromJSONtoItems(resultString));
@@ -41,7 +41,7 @@ public class MainSearchController {
         }
     }
 
-
+    //메인페이지 영화 데이터 불러오기
     @GetMapping("/api/main/movie")
     public List<Content> getContent() {
         return movieRepository.findAllByOrderByAverageDesc();
@@ -67,23 +67,23 @@ public class MainSearchController {
     }
 
 
-
+    //트렌드 불러오기
     @GetMapping("/api/main/trend")
     public List<Trend> getTrend() {
         return trendRepository.findAllByOrderByAverageDesc();
     }
 
-
+    //트렌드 검색
     @GetMapping("/api/main/trend/{id}")
     public List<Trend> getTrendForId(@PathVariable Long id) {
         return trendRepository.findByContentId(id);
     }
-
+    //드라마 불러오기
     @GetMapping("/api/main/drama")
     public List<Drama> getDrama() {
         return dramaRepository.findAllByOrderByAverageDesc();
     }
-
+    //드라마 상세검색
     @GetMapping("api/main/drama/{id}")
     public DramaDetail getDramaForId(@PathVariable Long id) {
         String resultString = apiSearch.dramaForId(id);
